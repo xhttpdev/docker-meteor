@@ -10,6 +10,8 @@ RUN curl https://install.meteor.com/ | sh
 
 VOLUME [ "/app" ]
 
+WORKDIR /app
+
 EXPOSE 3000
 
 CMD [ "meteor" ]
