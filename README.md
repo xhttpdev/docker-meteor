@@ -12,5 +12,4 @@ Docker Image with Meteor
         - "3000:3000"
         environment:
             - MONGO_URL=mongodb://example.com:27017/mycollection
-        volumes:
-            - /path/to/meteor/app:/app
+        
