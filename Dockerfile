@@ -18,6 +18,6 @@ ONBUILD ADD . /app
 
 EXPOSE 3000
 
-RUN meteor update --release 1.2.1
+RUN meteor update --release 1.2.0.2
 
 CMD [ "meteor" ]
