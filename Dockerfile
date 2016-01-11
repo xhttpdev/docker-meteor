@@ -7,6 +7,7 @@ RUN apt-get autoclean
 RUN mkdir /app
 
 RUN curl https://install.meteor.com/ | sh
+RUN meteor update --release 1.2.1
 
 VOLUME ["/packages"]
 ENV PACKAGE_DIRS /packages
