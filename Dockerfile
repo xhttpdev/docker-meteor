@@ -7,7 +7,7 @@ RUN apt-get -yqq update \
     && DEBIAN_FRONTEND=noninteractive apt-get -yqq install curl g++ make \
     && apt-get autoclean
 
-RUN curl https://install.meteor.com/ | sh \
+RUN curl https://install.meteor.com/ | /bin/sh \
     && mkdir -p /app/sourcecode \
     && mkdir -p /app/meteor-app
 
