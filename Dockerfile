@@ -1,23 +1,23 @@
-FROM node:0.10.41
+FROM node:0.10.43
 
-RUN apt-get -yqq update
-RUN DEBIAN_FRONTEND=noninteractive apt-get -yqq install curl vim g++ make
-RUN apt-get autoclean
-
-RUN mkdir /app
-
-RUN curl https://install.meteor.com/ | sh
-
-VOLUME ["/packages"]
-ENV PACKAGE_DIRS /packages
 ENV ROOT_URL http://localhost
 ENV PORT 3000
 
-ONBUILD ADD . /sourcecode
-ONBUILD RUN cd /sourcecode; meteor build /meteor-app
-ONBUILD RUN cd /meteor-app; tar -zxf sourcecode.tar.gz
-ONBUILD RUN cd /meteor-app/bundle/programs/server; npm install
+RUN apt-get -yqq update \
+    && DEBIAN_FRONTEND=noninteractive apt-get -yqq install curl g++ make \
+    && apt-get autoclean
+
+RUN curl https://install.meteor.com/ | sh \
+    && mkdir -p /app/sourcecode \
+    && mkdir -p /app/meteor-app
+
+ONBUILD ADD . /app/sourcecode
+ONBUILD RUN cd /app/sourcecode \
+            && meteor build --directory /app/meteor-app \
+            && cd /app/meteor-app/bundle/programs/server \
+            && npm install \
+            && rm -rf /app/sourcecode
 
 EXPOSE 3000
 
-CMD [ "node", "/meteor-app/bundle/main.js" ]
+CMD [ "node", "/app/meteor-app/bundle/main.js" ]
